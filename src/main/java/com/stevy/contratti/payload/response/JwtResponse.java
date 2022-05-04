@@ -1,7 +1,5 @@
 package com.stevy.contratti.payload.response;
 
-import com.stevy.contratti.models.Societa;
-
 import java.util.List;
 import java.util.Set;
 
@@ -12,15 +10,13 @@ public class JwtResponse {
     private String username;
     private String email;
     private List<String> roles;
-    private Set<Societa> societas;
 
-    public JwtResponse(String accessToken, Long id, String username, String email, List<String> roles, Set<Societa> societas) {
+    public JwtResponse(String accessToken, Long id, String username, String email, List<String> roles) {
         this.token = accessToken;
         this.id = id;
         this.username = username;
         this.email = email;
         this.roles = roles;
-        this.societas = societas;
     }
 
     public String getAccessToken() {
@@ -67,11 +63,5 @@ public class JwtResponse {
         return roles;
     }
 
-    public Set<Societa> getSocietas() {
-        return societas;
-    }
 
-    public void setSocietas(Set<Societa> societas) {
-        this.societas = societas;
-    }
 }

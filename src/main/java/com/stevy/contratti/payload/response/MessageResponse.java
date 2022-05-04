@@ -10,16 +10,12 @@ public class MessageResponse {
     private  String status;
     private  boolean success;
     private  String message;
-    private FileContrat file;
-    private Contrat data;
-    private List<Contrat> list;
     private Messages messages;
     private User user;
 
-    public MessageResponse(String action, boolean b, List<Contrat> l) {
+    public MessageResponse(String action, boolean b) {
         this.action = action;
         this.success = b;
-        this.list = l;
     }
 
 
@@ -36,14 +32,7 @@ public class MessageResponse {
     public MessageResponse(String message) {
         this.message = message;
     }
-    public MessageResponse(String action,String status,boolean success,String message,Contrat data) {
-        this.action = action;
-        this.status = status;
-        this.success = success;
-        this.message = message;
-        this.data = data;
 
-    }
     public MessageResponse(String action, boolean success, String message, User user) {
         this.action = action;
         this.success = success;
@@ -60,21 +49,9 @@ public class MessageResponse {
 
     }
 
-    public MessageResponse(String action,String status,boolean success,String message,List<Contrat> list) {
-        this.action = action;
-        this.status = status;
-        this.success = success;
-        this.message = message;
-        this.list = list;
-    }
 
-    public MessageResponse(String action,String status,boolean success,String message,FileContrat file) {
-        this.action = action;
-        this.status = status;
-        this.success = success;
-        this.message = message;
-        this.file = file;
-    }
+
+
     public MessageResponse(String action,String status,boolean success,String message) {
         this.action = action;
         this.status = status;
@@ -106,18 +83,6 @@ public class MessageResponse {
         this.success = success;
     }
 
-    public FileContrat getFile() {
-        return file;
-    }
-
-    public void setFile(FileContrat file) {
-        this.file = file;
-    }
-
-    public Contrat getData() {
-        return data;
-    }
-
     public User getUser() {
         return user;
     }
@@ -126,9 +91,6 @@ public class MessageResponse {
         this.user = user;
     }
 
-    public void setData(Contrat data) {
-        this.data = data;
-    }
 
     public String getMessage() {
         return message;
@@ -138,13 +100,7 @@ public class MessageResponse {
         this.message = message;
     }
 
-    public List<Contrat> getList() {
-        return list;
-    }
 
-    public void setList(List<Contrat> list) {
-        this.list = list;
-    }
 
 
 }

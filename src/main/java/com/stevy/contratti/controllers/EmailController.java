@@ -2,8 +2,6 @@ package com.stevy.contratti.controllers;
 
 import com.stevy.contratti.models.Messages;
 import com.stevy.contratti.payload.response.MessageResponse;
-import com.stevy.contratti.repository.ContratRepository;
-import com.stevy.contratti.service.ContraService;
 import com.stevy.contratti.service.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/auth")
 public class EmailController {
-    @Autowired
-    private ContratRepository contratRepository;
-    @Autowired
-    private  ContraService contraService;
+
     @Autowired
     EmailService es;
 

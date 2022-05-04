@@ -1,9 +1,7 @@
 package com.stevy.contratti.controllers;
 import com.stevy.contratti.models.User;
 import com.stevy.contratti.payload.response.MessageResponse;
-import com.stevy.contratti.repository.ContratRepository;
 import com.stevy.contratti.repository.UserRepository;
-import com.stevy.contratti.service.ContraService;
 import com.stevy.contratti.service.email.UserService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     @PutMapping("/user/update")
-    @PreAuthorize("hasRole('ROLE_HR') or hasRole('ROLE_ADMMINISTRAZIONE') or hasRole('ROLE_GESTIONE')")
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public ResponseEntity < MessageResponse > updateuser(@Valid @RequestBody UserForm userForm) {
         User up = userService.updatePassword(userForm.getUsername(), userForm.getPassword(), userForm.getConfirmedPassword(), userForm.getId_user());
         return ResponseEntity.ok(new MessageResponse("Update User", true, "User Updater successfully", up));

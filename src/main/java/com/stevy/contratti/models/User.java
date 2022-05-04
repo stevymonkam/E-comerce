@@ -38,17 +38,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(	name = "user_societa",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "societa_id"))
-    private Set<Societa> societas = new HashSet<>();
-
-    @OneToMany(fetch= FetchType.EAGER)
-    Set<Contrat> contrauser;
-
-
-
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
@@ -61,23 +50,6 @@ public class User {
     }
     public User() {
     }
-
-    public Set<Societa> getSocietas() {
-        return societas;
-    }
-
-    public void setSocietas(Set<Societa> societas) {
-        this.societas = societas;
-    }
-
-    public Set<Contrat> getContrauser() {
-        return contrauser;
-    }
-
-    public void setContrauser(Set<Contrat> contrauser) {
-        this.contrauser = contrauser;
-    }
-
     public Long getId() {
         return id;
     }

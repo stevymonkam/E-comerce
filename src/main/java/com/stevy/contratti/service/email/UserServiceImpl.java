@@ -1,16 +1,10 @@
 package com.stevy.contratti.service.email;
 
-import com.stevy.contratti.models.Contrat;
 import com.stevy.contratti.models.Role;
-import com.stevy.contratti.models.Societa;
 import com.stevy.contratti.models.User;
-import com.stevy.contratti.payload.response.MessageResponse;
-import com.stevy.contratti.repository.ContratRepository;
 import com.stevy.contratti.repository.RoleRepository;
 import com.stevy.contratti.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,14 +15,12 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
-    private ContratRepository contratRepository;
     private RoleRepository roleRepository;
     @Autowired
     PasswordEncoder encoder;
 
-    public UserServiceImpl(UserRepository userRepository, ContratRepository contratRepository, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userRepository,RoleRepository roleRepository) {
         this.userRepository= userRepository;
-        this.contratRepository = contratRepository;
         this.roleRepository = roleRepository;
 
     }
@@ -52,8 +44,5 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Override
-    public Contrat userPriority(Contrat contrat, List<Societa> s, List<Role> r, User u) {
-        return null;
-    }
+
 }

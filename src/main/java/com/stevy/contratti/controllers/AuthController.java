@@ -6,11 +6,9 @@ import com.stevy.contratti.payload.request.SignupRequest;
 import com.stevy.contratti.payload.response.JwtResponse;
 import com.stevy.contratti.payload.response.MessageResponse;
 import com.stevy.contratti.repository.RoleRepository;
-import com.stevy.contratti.repository.SocietaRepository;
 import com.stevy.contratti.repository.UserRepository;
 import com.stevy.contratti.security.jwt.JwtUtils;
 import com.stevy.contratti.security.services.UserDetailsImpl;
-import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,9 +36,6 @@ public class AuthController {
     RoleRepository roleRepository;
 
     @Autowired
-    SocietaRepository societaRepository;
-
-    @Autowired
     PasswordEncoder encoder;
 
     @Autowired
@@ -59,7 +54,7 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles, userDetails.getSocietas()));
+        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles));
     }
 
     @PostMapping("/signup")
@@ -89,35 +84,21 @@ public class AuthController {
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
-                    case "hr":
-                        Role hrRole = roleRepository.findByName(ERole.ROLE_HR)
+                    case "user":
+                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(hrRole);
+                        roles.add(userRole);
 
                         break;
 
                     case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMMINISTRAZION)
+                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
 
                         break;
-                    case "logistica":
-                        System.out.println("ERole.ROLE_MODERATOR==" + ERole.ROLE_LOGISTICA);
-                        Role modRole = roleRepository.findByName(ERole.ROLE_LOGISTICA)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        System.out.println("ERole.ROLE_MODERATOR==" + ERole.ROLE_LOGISTICA);
-                        roles.add(modRole);
 
-                        break;
-                    case "gestione":
-                        System.out.println("ERole.ROLE_MODERATOR==" + ERole.ROLE_GESTIONE);
-                        Role gesRole = roleRepository.findByName(ERole.ROLE_GESTIONE)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        System.out.println("ERole.ROLE_MODERATOR==" + ERole.ROLE_GESTIONE);
-                        roles.add(gesRole);
 
-                        break;
           /* default:
               Role hrRole = roleRepository.findByName(ERole.ROLE_HR)
                       .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -126,63 +107,10 @@ public class AuthController {
             });
         }
 
-        Set<Societa> sc = this.listSociete(signUpRequest.getSocieta());
         user.setRoles(roles);
-        user.setSocietas(sc);
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
-    private Set<Societa> listSociete(Set<String> societa) {
-        Set<String> strSocietas = societa;
-        Set<Societa> societas = new HashSet<>();
 
-        if (strSocietas == null) {
-            /*Societa userSocieta = societaRepository.findByName(ESocieta.BE_CONSULTING)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            societas.add(userSocieta);*/
-            throw new RuntimeException("Error: societa is not found.");
-        } else {
-            strSocietas.forEach(societ -> {
-                switch (societ) {
-                    case "BE_CONSULTING":
-                        Societa soc1 = societaRepository.findByName(ESocieta.BE_CONSULTING)
-                            .orElseThrow(() -> new RuntimeException("Error: Societa is not found."));
-                        societas.add(soc1);
-                        break;
-                    case "BE_SOLUTIONS":
-                        System.out.println("ESocieta.BE_SOLUTIONS=="+ESocieta.BE_SOLUTIONS);
-                        Societa soc2 = societaRepository.findByName(ESocieta.BE_SOLUTIONS)
-                            .orElseThrow(() -> new RuntimeException("Error: Societa is not found."));
-                        societas.add(soc2);
-                        break;
-                    case "BE_BE":
-                        System.out.println("ESocieta.BE_BE=="+ESocieta.BE_BE);
-                        Societa soc3 = societaRepository.findByName(ESocieta.BE_BE)
-                            .orElseThrow(() -> new RuntimeException("Error: Societa is not found."));
-                        societas.add(soc3);
-                        break;
-                    case "BE_THINK":
-                        System.out.println("ESocieta.BE_BE=="+ESocieta.BE_THINK);
-                        Societa soc4 = societaRepository.findByName(ESocieta.BE_THINK)
-                            .orElseThrow(() -> new RuntimeException("Error: Societa is not found."));
-                        societas.add(soc4);
-
-                        break;
-                    case "BE_SFCS":
-                        System.out.println("ESocieta.BE_BE=="+ESocieta.BE_SFCS);
-                        Societa soc5 = societaRepository.findByName(ESocieta.BE_SFCS)
-                            .orElseThrow(() -> new RuntimeException("Error: Societa is not found."));
-                        societas.add(soc5);
-                        break;
-                    default:
-                       /* System.out.println("ESocieta.BE_BE=="+ESocieta.BE_SFCS);
-                        Societa soc6 = societaRepository.findByName(ESocieta.BE_CONSULTING)
-                                .orElseThrow(() -> new RuntimeException("Error: Societa is not found."));
-                        societas.add(soc6);*/
-                }
-            });
-        }
-        return societas;
-    }
 }

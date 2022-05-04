@@ -1,12 +1,11 @@
 package com.stevy.contratti;
 
-import com.stevy.contratti.service.ContraService;
 import com.stevy.contratti.service.FileContratService;
+import com.stevy.contratti.service.email.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.Resource;
 
@@ -22,7 +21,7 @@ public class DemoApplication {
     }
 
     @Bean
-    CommandLineRunner start(ContraService contraService) {
+    CommandLineRunner start(UserService userService) {
         return args->{
             fileContratService.deleteAll();
             fileContratService.init();
