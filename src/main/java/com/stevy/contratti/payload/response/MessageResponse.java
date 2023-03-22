@@ -6,17 +6,24 @@ import java.util.List;
 
 public class MessageResponse {
 
+    private  Product product;
+    private  ProductDto productDto;
     private  String action;
     private  String status;
     private  boolean success;
     private  String message;
     private Messages messages;
     private User user;
+    private List<Category> listcat;
+    private List<Product> listp;
+    private List<ProductDto> ldto;
 
     public MessageResponse(String action, boolean b) {
         this.action = action;
         this.success = b;
     }
+
+
 
 
     public Messages getMessages() {
@@ -48,8 +55,33 @@ public class MessageResponse {
         this.messages = messages;
 
     }
+    public MessageResponse(String action,String status,boolean success,String message,List<Category> l) {
+        this.action = action;
+        this.status = status;
+        this.success = success;
+        this.message = message;
+        this.messages = messages;
+        this.listcat = l;
+
+    }
 
 
+
+    public MessageResponse(String action,String status,boolean success,List<ProductDto> l) {
+        this.action = action;
+        this.status = status;
+        this.success = success;
+        this.ldto = l;
+
+    }
+
+    public MessageResponse(String action,String status,String message, ProductDto productDto) {
+        this.action = action;
+        this.status = status;
+        this.message = message;
+        this.productDto = productDto;
+
+    }
 
 
     public MessageResponse(String action,String status,boolean success,String message) {
@@ -87,10 +119,33 @@ public class MessageResponse {
         return user;
     }
 
+    public List<Product> getListp() {
+        return listp;
+    }
+
+    public void setListp(List<Product> listp) {
+        this.listp = listp;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }
 
+    public List<ProductDto> getLdto() {
+        return ldto;
+    }
+
+    public void setLdto(List<ProductDto> ldto) {
+        this.ldto = ldto;
+    }
+
+    public List<Category> getListcat() {
+        return listcat;
+    }
+
+    public void setListcat(List<Category> listcat) {
+        this.listcat = listcat;
+    }
 
     public String getMessage() {
         return message;
@@ -100,7 +155,19 @@ public class MessageResponse {
         this.message = message;
     }
 
+    public Product getProduct() {
+        return product;
+    }
 
+    public ProductDto getProductDto() {
+        return productDto;
+    }
 
+    public void setProductDto(ProductDto productDto) {
+        this.productDto = productDto;
+    }
 
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }
